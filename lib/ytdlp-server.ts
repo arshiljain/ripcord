@@ -5,8 +5,8 @@ import os from 'node:os'
 import path from 'node:path'
 import { Readable } from 'node:stream'
 import { pipeline } from 'node:stream/promises'
-import { buildChoices, type DownloadChoice, type VideoInfo } from './choices.js'
-import { detectPlatform, type Platform } from './platforms.js'
+import { buildChoices, type DownloadChoice, type VideoInfo } from './choices'
+import { detectPlatform, type Platform } from './platforms'
 
 // In serverless (Vercel), only /tmp is writable
 const IS_SERVERLESS = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME)

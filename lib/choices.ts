@@ -1,4 +1,4 @@
-import { formatBytes } from './format.js'
+import { formatBytes } from './format'
 
 export type RawFormat = {
   format_id: string
