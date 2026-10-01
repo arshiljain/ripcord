@@ -12,6 +12,7 @@ import { ProgressPhase } from '@/components/ProgressPhase'
 import { DonePhase } from '@/components/DonePhase'
 import { MediaPreviewModal } from '@/components/MediaPreviewModal'
 import { HistoryDrawer } from '@/components/HistoryDrawer'
+import { FeaturesDrawer } from '@/components/FeaturesDrawer'
 import { ProbeResult } from '@/lib/ytdlp-server'
 import { DownloadChoice } from '@/lib/choices'
 import {
@@ -35,6 +36,7 @@ export default function RipcordPage() {
   // Modals & Drawers
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
   const [isHistoryOpen, setIsHistoryOpen] = useState(false)
+  const [isFeaturesOpen, setIsFeaturesOpen] = useState(false)
   const [historyItems, setHistoryItems] = useState<HistoryItem[]>([])
 
   // Load history from localStorage on client mount
@@ -171,11 +173,19 @@ export default function RipcordPage() {
             RIPCORD
           </span>
           <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700">
-            v1.1.0
+            v1.2.0
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
+          <button
+            onClick={() => setIsFeaturesOpen(true)}
+            className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 text-xs border border-zinc-700 hover:border-sky-500 rounded bg-zinc-800/60 hover:bg-zinc-800 text-sky-400 transition-colors"
+          >
+            <span>⚡</span>
+            <span>22 features</span>
+          </button>
+
           <button
             onClick={() => setIsHistoryOpen(true)}
             className="flex items-center gap-1.5 px-2.5 py-1 text-xs border border-zinc-700 hover:border-zinc-500 rounded bg-zinc-800/60 hover:bg-zinc-800 transition-colors"
@@ -192,11 +202,11 @@ export default function RipcordPage() {
           <ThemeToggle theme={theme} onToggle={handleToggleTheme} />
 
           <a
-            href="https://github.com/arshiljain"
+            href="https://github.com/arshiljain/ripcord"
             target="_blank"
             rel="noreferrer"
             className="text-xs text-zinc-400 hover:text-white transition-colors"
-            title="GitHub Profile"
+            title="GitHub Repository"
           >
             github ↗
           </a>
@@ -298,11 +308,20 @@ export default function RipcordPage() {
       {/* Footer */}
       <footer className="relative z-10 w-full max-w-4xl py-6 mt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-zinc-400 border-t border-zinc-800/80 gap-2">
         <span>
-          Ripcord — created by <a href="https://github.com/arshiljain" target="_blank" rel="noreferrer" className="underline hover:text-white">Arshil Jain</a>
+          created by <a href="https://github.com/arshiljain" target="_blank" rel="noreferrer" className="underline hover:text-white font-medium">Dopamine Agency</a>
         </span>
-        <span>
-          pull the ripcord. grab any stream. done.
-        </span>
+        <div className="flex items-center gap-3">
+          <a
+            href="https://github.com/arshiljain/ripcord"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-white transition-colors"
+          >
+            github repository ↗
+          </a>
+          <span>·</span>
+          <span>pull the ripcord. grab any stream. done.</span>
+        </div>
       </footer>
 
       {/* Media Preview Modal */}
@@ -321,6 +340,12 @@ export default function RipcordPage() {
         onSelectUrl={handleSelectFromHistory}
         onRemoveItem={handleRemoveHistoryItem}
         onClearAll={handleClearHistory}
+      />
+
+      {/* 22 Features Drawer */}
+      <FeaturesDrawer
+        isOpen={isFeaturesOpen}
+        onClose={() => setIsFeaturesOpen(false)}
       />
     </main>
   )

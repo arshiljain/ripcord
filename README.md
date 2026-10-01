@@ -10,40 +10,34 @@
 
 **Ripcord** is a lightning-fast, ad-free web application for streaming and downloading video and audio from YouTube, X/Twitter, Instagram, TikTok, Threads, Reddit, Vimeo, Twitch, and over 1,800+ sites.
 
-Built by [Arshil Jain](https://github.com/arshiljain), Ripcord features a retro-terminal aesthetic, animated ASCII sweep banner, keyboard navigation, and seamless Vercel deployment.
+Created by **[Dopamine Agency](https://github.com/arshiljain)** ([Arshil Jain](https://github.com/arshiljain)), Ripcord features a retro-terminal aesthetic, animated ASCII sweep banner, keyboard navigation, and seamless Vercel deployment.
 
 ---
 
-## ✨ Features
+## ⚡ 22 Core Features (All Native to the UI/UX)
 
-- **🛡️ 100% Clean & Ad-Free:** No spam, popups, or sketchy redirects. Direct stream resolution powered by `yt-dlp`.
-- **💻 Cyber-Terminal Aesthetic:** Dark/Light theme toggle, monospaced typography, retro framed containers, and subtle CRT scanlines.
-- **⚡ Animated ASCII Sweep:** Dynamic matrix beam sweep animation over the `RIPCORD` wordmark.
-- **🎯 Live Platform Detection:** Instant recognition of 9+ major platforms as you paste:
-  - 🔴 YouTube & YouTube Music
-  - 🐦 X / Twitter
-  - 📷 Instagram (Reels & Posts)
-  - 🎵 TikTok
-  - 🧵 Threads
-  - 🤖 Reddit
-  - 🎬 Vimeo
-  - 🟣 Twitch
-  - 🔵 Facebook
-  - 🦋 Bluesky
-  - 🌐 1,800+ sites
-- **🎞️ Smart Quality & Format Choices:**
-  - Video: 4K, 1440p, 1080p, 720p, 480p, 360p (MP4) with live file size estimates.
-  - Audio: High-Quality MP3 (320kbps) & AAC / M4A.
-- **✂️ Video Timestamp Trimmer:** Trim clips on the fly! Set start and end timestamps (e.g. `00:15` to `00:45`) to extract only the clip you need.
-- **🖼️ One-Click HD Thumbnail Extractor:** Download full-resolution cover art and thumbnails with one click.
-- **🔗 Copy Direct Stream URL:** Copy the raw resolved media stream link to play directly in VLC, QuickTime, or embed elsewhere.
-- **▶️ In-Browser Media Previewer:** Stream and watch or listen to the media right in the web app before downloading.
-- **📜 Local Download History:** Slide-out drawer tracking previously pulled streams stored in `localStorage`.
-- **⌨️ Keyboard First Navigation:**
-  - `Enter`: Pull Ripcord / Confirm selection / Pull another
-  - `↑` / `↓`: Navigate format choices
-  - `Esc`: Back / Cancel / Close modals
-  - `Cmd+V` / `Ctrl+V`: Quick paste
+1. **🛡️ 100% Ad-Free Direct Stream Resolution:** No spam, popups, redirects, or shady download links. Direct stream extraction powered by `yt-dlp`.
+2. **⚡ Animated ASCII Matrix Shimmer Sweep:** Real-time canvas/DOM matrix beam sweep animation over the `RIPCORD` wordmark with retro physics.
+3. **🎯 Live Platform Auto-Detection:** Automatically identifies YouTube, Twitter/X, Instagram, TikTok, Threads, Reddit, Vimeo, Twitch, Facebook, and Bluesky as you paste.
+4. **🏷️ Multi-Platform Filter Badges:** Interactive platform tag chips displaying supported sources.
+5. **🔍 Instant URL Validator & Sanitizer:** Pre-flight validation catches typos and invalid URLs before contacting the extractor.
+6. **📋 One-Click Clipboard Auto-Paste:** Dedicated paste trigger with clipboard permission detection.
+7. **✕ One-Click Clear Action:** Instantly wipe and reset the URL input.
+8. **⌛ 10-Frame Braille Status Spinner:** Dynamic rotating Braille spinner (`⠋ ⠙ ⠹...`) displaying stage-by-stage probe diagnostics.
+9. **🛑 Probe Cancellation (`Esc`):** Abort in-flight network probe requests at any moment.
+10. **🖼️ High-Res Media Thumbnail & Duration:** Crisp video preview thumbnail with an overlay duration indicator (`MM:SS` / `HH:MM:SS`).
+11. **👤 Uploader & Channel Attribution:** Displays creator name, channel handle, and platform badge.
+12. **📸 One-Click HD Cover Art Extractor:** "🖼️ HD cover" chip to view and download full-resolution cover art and thumbnails.
+13. **🔗 Copy Direct Stream URL:** "🔗 copy link" chip to grab the raw resolved video stream link for VLC or external players.
+14. **✂️ Precision Clip Timestamp Trimmer:** "✂ trim clip" drawer to specify Start (`00:00`) and End (`00:30`) times to extract only the clip you need.
+15. **🎧 High-Quality MP3 Audio (320k):** Extracts pristine 320kbps MP3 audio directly from any video stream.
+16. **🍏 Native AAC / M4A Audio Extraction:** High-efficiency AAC audio stream extraction for Apple/iOS devices.
+17. **🎞️ Multi-Resolution Video Selector:** Automatically scores and lists 4K, 1440p, 1080p, 720p, 480p, and 360p with estimated file sizes.
+18. **⌨️ Terminal Keyboard Navigation:** Navigate quality choices with `↑` / `↓` and confirm with `Enter`.
+19. **▶️ In-Browser Media Preview Player:** Built-in HTML5 modal video/audio player to preview content before downloading.
+20. **📊 ASCII Progress Bar & ETA:** Retro `[██████░░░░] 64%` progress bar with speed (MB/s) and remaining time estimates.
+21. **📜 Persistent History Drawer:** Slide-out drawer tracking up to 20 previously pulled streams stored in `localStorage` for 1-click re-pulling.
+22. **🌓 Dark / Light Retro Terminal Theme:** High-contrast palette toggle with retro CRT scanline backdrop.
 
 ---
 
@@ -92,7 +86,7 @@ npm run build
 
 Ripcord is pre-configured with `vercel.json` for one-click deployment:
 
-1. Push your repository to GitHub (`https://github.com/arshiljain/ripcord`).
+1. Push your repository to GitHub: `https://github.com/arshiljain/ripcord`.
 2. Go to [vercel.com](https://vercel.com) and click **Add New Project**.
 3. Select the `ripcord` repository and click **Deploy**.
 4. The serverless functions will automatically handle execution permissions and `/tmp` storage caching.
@@ -108,8 +102,11 @@ Ripcord is pre-configured with `vercel.json` for one-click deployment:
 
 ---
 
-## 👤 Author
+## 👤 Author & Credits
 
-Created with ⚡ by **[Arshil Jain](https://github.com/arshiljain)**.
+Created by **[Dopamine Agency](https://github.com/arshiljain)** ([Arshil Jain](https://github.com/arshiljain)).
+
+- GitHub: [https://github.com/arshiljain/ripcord](https://github.com/arshiljain/ripcord)
+- Profile: [https://github.com/arshiljain](https://github.com/arshiljain)
 
 License: [MIT](LICENSE)
