@@ -55,7 +55,7 @@ export default function RipcordPage() {
   }
 
   // Handle probe request
-  const handleYoink = useCallback(async (url: string) => {
+  const handlePull = useCallback(async (url: string) => {
     setTargetUrl(url)
     setPhase('probing')
     setErrorMessage(null)
@@ -82,49 +82,55 @@ export default function RipcordPage() {
   }, [])
 
   // Handle format choice selection & trigger download
-  const handleSelectChoice = useCallback((choice: DownloadChoice) => {
-    if (!probeData) return
+  const handleSelectChoice = useCallback(
+    (choice: DownloadChoice, trimStart?: string, trimEnd?: string) => {
+      if (!probeData) return
 
-    setSelectedChoice(choice)
-    setPhase('downloading')
+      setSelectedChoice(choice)
+      setPhase('downloading')
 
-    const dlUrl = `/api/download?url=${encodeURIComponent(targetUrl)}&choiceId=${encodeURIComponent(
-      choice.id
-    )}&title=${encodeURIComponent(probeData.title)}`
+      let dlUrl = `/api/download?url=${encodeURIComponent(targetUrl)}&choiceId=${encodeURIComponent(
+        choice.id
+      )}&title=${encodeURIComponent(probeData.title)}`
 
-    setDownloadUrl(dlUrl)
+      if (trimStart) dlUrl += `&trimStart=${encodeURIComponent(trimStart)}`
+      if (trimEnd) dlUrl += `&trimEnd=${encodeURIComponent(trimEnd)}`
 
-    // Save to history
-    const historyEntry: HistoryItem = {
-      id: probeData.id,
-      url: targetUrl,
-      title: probeData.title,
-      thumbnail: probeData.thumbnail,
-      uploader: probeData.uploader,
-      duration: probeData.duration,
-      formatLabel: choice.label,
-      timestamp: Date.now()
-    }
+      setDownloadUrl(dlUrl)
 
-    setHistoryItems(prev => {
-      const updated = addToHistoryList(prev, historyEntry)
-      saveHistory(updated)
-      return updated
-    })
+      // Save to history
+      const historyEntry: HistoryItem = {
+        id: probeData.id,
+        url: targetUrl,
+        title: probeData.title,
+        thumbnail: probeData.thumbnail,
+        uploader: probeData.uploader,
+        duration: probeData.duration,
+        formatLabel: choice.label,
+        timestamp: Date.now()
+      }
 
-    // Simulated progress delay before triggering download
-    setTimeout(() => {
-      // Trigger browser download via invisible link
-      const link = document.createElement('a')
-      link.href = dlUrl
-      link.download = ''
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
+      setHistoryItems(prev => {
+        const updated = addToHistoryList(prev, historyEntry)
+        saveHistory(updated)
+        return updated
+      })
 
-      setPhase('done')
-    }, 2800)
-  }, [probeData, targetUrl])
+      // Simulated progress delay before triggering download
+      setTimeout(() => {
+        // Trigger browser download via invisible link
+        const link = document.createElement('a')
+        link.href = dlUrl
+        link.download = ''
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+
+        setPhase('done')
+      }, 2800)
+    },
+    [probeData, targetUrl]
+  )
 
   // Reset to input phase
   const handleReset = useCallback(() => {
@@ -150,7 +156,7 @@ export default function RipcordPage() {
 
   const handleSelectFromHistory = (url: string) => {
     setTargetUrl(url)
-    handleYoink(url)
+    handlePull(url)
   }
 
   return (
@@ -165,7 +171,7 @@ export default function RipcordPage() {
             RIPCORD
           </span>
           <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700">
-            v1.0.0
+            v1.1.0
           </span>
         </div>
 
@@ -186,11 +192,11 @@ export default function RipcordPage() {
           <ThemeToggle theme={theme} onToggle={handleToggleTheme} />
 
           <a
-            href="https://github.com/pablostanley/yoinks"
+            href="https://github.com/arshiljain"
             target="_blank"
             rel="noreferrer"
             className="text-xs text-zinc-400 hover:text-white transition-colors"
-            title="Upstream Yoinks Repository"
+            title="GitHub Profile"
           >
             github ↗
           </a>
@@ -221,7 +227,7 @@ export default function RipcordPage() {
         >
           {phase === 'input' && (
             <InputPhase
-              onYoink={handleYoink}
+              onPull={handlePull}
               initialUrl={targetUrl}
             />
           )}
@@ -269,7 +275,7 @@ export default function RipcordPage() {
               </p>
               <div className="pt-2 flex justify-center gap-3">
                 <button
-                  onClick={() => handleYoink(targetUrl)}
+                  onClick={() => handlePull(targetUrl)}
                   className="px-4 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-white text-xs rounded border border-zinc-600 transition-colors"
                 >
                   retry
@@ -292,10 +298,10 @@ export default function RipcordPage() {
       {/* Footer */}
       <footer className="relative z-10 w-full max-w-4xl py-6 mt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-zinc-400 border-t border-zinc-800/80 gap-2">
         <span>
-          inspired by <a href="https://github.com/pablostanley/yoinks" target="_blank" rel="noreferrer" className="underline hover:text-white">Yoinks</a> by Pablo Stanley
+          Ripcord — created by <a href="https://github.com/arshiljain" target="_blank" rel="noreferrer" className="underline hover:text-white">Arshil Jain</a>
         </span>
         <span>
-          powered by Next.js & yt-dlp
+          pull the ripcord. grab any stream. done.
         </span>
       </footer>
 

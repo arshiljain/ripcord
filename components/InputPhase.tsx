@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { detectPlatform, isProbablyUrl } from '@/lib/platforms'
 
 interface InputPhaseProps {
-  onYoink: (url: string) => void
+  onPull: (url: string) => void
   disabled?: boolean
   initialUrl?: string
 }
@@ -21,7 +21,7 @@ const SUPPORTED_SITES = [
   '1800+ more'
 ]
 
-export function InputPhase({ onYoink, disabled = false, initialUrl = '' }: InputPhaseProps) {
+export function InputPhase({ onPull, disabled = false, initialUrl = '' }: InputPhaseProps) {
   const [url, setUrl] = useState(initialUrl)
   const [error, setError] = useState<string | null>(null)
 
@@ -57,7 +57,7 @@ export function InputPhase({ onYoink, disabled = false, initialUrl = '' }: Input
       return
     }
     setError(null)
-    onYoink(url.trim())
+    onPull(url.trim())
   }
 
   return (

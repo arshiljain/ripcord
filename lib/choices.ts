@@ -86,12 +86,22 @@ export function buildChoices(info: VideoInfo): DownloadChoice[] {
   }
 
   const audioSizeLabel = audioSize ? ` · ~${formatBytes(audioSize)}` : ''
+  // 320kbps MP3
   choices.push({
     id: 'audio-mp3',
     kind: 'audio',
-    label: `audio only · mp3${audioSizeLabel}`,
+    label: `audio · mp3 (320k)${audioSizeLabel}`,
     approxBytes: audioSize,
     args: ['-f', 'ba/b', '-x', '--audio-format', 'mp3', '--audio-quality', '0'],
+  })
+
+  // AAC / M4A
+  choices.push({
+    id: 'audio-m4a',
+    kind: 'audio',
+    label: `audio · m4a / aac${audioSizeLabel}`,
+    approxBytes: audioSize,
+    args: ['-f', 'ba/b', '-x', '--audio-format', 'm4a'],
   })
 
   return choices

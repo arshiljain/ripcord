@@ -10,25 +10,25 @@ interface ShortcutsBarProps {
 
 const HINTS: Record<AppPhaseName, Array<[string, string]>> = {
   input: [
-    ['↵', 'yoink'],
+    ['↵', 'pull stream'],
     ['cmd+v', 'paste']
   ],
   probing: [
     ['esc', 'cancel']
   ],
   picking: [
-    ['↑↓', 'choose'],
-    ['↵', 'yoink'],
+    ['↑↓', 'choose format'],
+    ['↵', 'pull ripcord'],
     ['esc', 'back']
   ],
   downloading: [
     ['esc', 'cancel']
   ],
   done: [
-    ['↵', 'yoink another']
+    ['↵', 'pull another']
   ],
   error: [
-    ['↵', 'try again'],
+    ['↵', 'retry'],
     ['esc', 'reset']
   ]
 }

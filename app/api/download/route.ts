@@ -15,6 +15,8 @@ export async function GET(request: NextRequest) {
     const url = searchParams.get('url')
     const choiceId = searchParams.get('choiceId') || 'video-best'
     const title = searchParams.get('title') || 'ripcord-stream'
+    const trimStart = searchParams.get('trimStart')
+    const trimEnd = searchParams.get('trimEnd')
 
     if (!url || !isProbablyUrl(url)) {
       return new NextResponse('Invalid or missing URL parameter', { status: 400 })
@@ -24,7 +26,10 @@ export async function GET(request: NextRequest) {
     const ffmpeg = await findFfmpeg()
 
     const isAudio = choiceId.includes('audio')
-    const ext = isAudio ? 'mp3' : 'mp4'
+    let ext = 'mp4'
+    if (choiceId === 'audio-m4a') ext = 'm4a'
+    else if (isAudio) ext = 'mp3'
+
     const safeTitle = title.replace(/[/\\?%*:|"<>]/g, '_').trim().slice(0, 80)
     const filename = `${safeTitle || 'ripcord'}.${ext}`
 
@@ -35,7 +40,16 @@ export async function GET(request: NextRequest) {
     // Determine format flags
     const args: string[] = [url, '--no-playlist', '--no-warnings', '--no-simulate']
 
-    if (isAudio) {
+    // Optional clip trimming support (*00:10-00:45)
+    if (trimStart || trimEnd) {
+      const start = trimStart || '0'
+      const end = trimEnd || 'inf'
+      args.push('--download-sections', `*${start}-${end}`)
+    }
+
+    if (choiceId === 'audio-m4a') {
+      args.push('-f', 'ba/b', '-x', '--audio-format', 'm4a')
+    } else if (isAudio) {
       args.push('-f', 'ba/b', '-x', '--audio-format', 'mp3', '--audio-quality', '0')
     } else {
       const heightMatch = choiceId.match(/video-(\d+)/)
@@ -105,7 +119,9 @@ export async function GET(request: NextRequest) {
       }
     })
 
-    const contentType = isAudio ? 'audio/mpeg' : 'video/mp4'
+    let contentType = 'video/mp4'
+    if (ext === 'mp3') contentType = 'audio/mpeg'
+    else if (ext === 'm4a') contentType = 'audio/mp4'
 
     return new NextResponse(webStream as any, {
       status: 200,
